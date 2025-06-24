@@ -1,3 +1,6 @@
+#  Automated Document Collection and Tracking System
+This project automates the process of collecting documents from users via email, tracking submissions, updating records in an Excel workbook, and providing a web-based interface to monitor the status. It combines Excel macros, email automation, file storage, database tracking, and a Flask-based web interface.
+
 **System Architecture**
 1. Excel Workbook
 Serves as the primary record-keeping tool.
@@ -75,34 +78,9 @@ View submission statuses in real time
 Monitor outstanding and completed uploads
 
 **Workflow**
+![ideation](https://github.com/user-attachments/assets/fbf58db7-0665-4cf8-8f66-88037f2ca04b)
 
-Initiation
-   ↓
-Admin prepares the Excel workbook with user data.
-   ↓
-Macros generate and send email reminders.
-   ↓
-User Submission
-   ↓
-Users reply with required document attachments.
-   ↓
-Attachment Handling
-   ↓
-Python script scans the inbox and downloads attachments.
-   ↓
-Database and File System Update
-   ↓
-Submission metadata logged; files organized by user/date/type.
-   ↓
-Tracking
-   ↓
-Python updates Excel workbook with current status.
-   ↓
-Visualization
-   ↓
-Flask app displays data on the admin dashboard.
-   ↓
-Stakeholders access the webpage for status updates.
+
 
 
 **Tech Stack**
