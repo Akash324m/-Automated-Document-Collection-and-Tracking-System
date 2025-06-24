@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Document Status Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+        .employee-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 300px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .employee-card h3 {
+            margin-top: 0;
+        }
+        .doc-status {
+            margin-top: 10px;
+        }
+        .doc-status span {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .approved {
+            color: green;
+            font-weight: bold;
+        }
+        .not-uploaded {
+            color: red;
+            font-weight: bold;
+        }
+        .approval-required {
+            color: orange;
+            font-weight: bold;
+        }
+    </style>
+    <meta http-equiv="refresh" content="20"> <!-- refresh every 1800 seconds (30 minutes) -->
+</head>
+<body>
+
+    <h1>Employee Document Status Dashboard</h1>
+    <div id="dashboard"></div>
+
+    <script>
+        async function loadData() {
+            const response = await fetch('/data'); // endpoint to serve employee data from Python
+            const data = await response.json();
+
+            const dashboard = document.getElementById('dashboard');
+            dashboard.innerHTML = '';
+
+            data.forEach(emp => {
+                const card = document.createElement('div');
+                card.className = 'employee-card';
+
+                card.innerHTML = `
+                    <h3>${emp.name}</h3>
+                    <p><strong>ID:</strong> ${emp.id}</p>
+                    <p><strong>Email:</strong> ${emp.email}</p>
+                    <div class="doc-status">
+                        <span class="${getStatusClass(emp.resume)}">Resume: ${emp.resume}</span>
+                        <span class="${getStatusClass(emp.salary_slip)}">Salary Slip: ${emp.salary_slip}</span>
+                        <span class="${getStatusClass(emp.aadhar_card)}">Aadhar Card: ${emp.aadhar_card}</span>
+                        <span class="${getStatusClass(emp.pan_card)}">Pan Card: ${emp.pan_card}</span>
+                    </div>
+                `;
+
+                dashboard.appendChild(card);
+            });
+        }
+
+        function getStatusClass(status) {
+            if (status.toLowerCase() === 'approved') return 'approved';
+            if (status.toLowerCase() === 'approval required') return 'approval-required';
+            return 'not-uploaded';
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
